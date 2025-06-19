@@ -1,0 +1,9 @@
+[package]
+name = "wasip122"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.5.40", features = ["derive"] }
+wasi-preview1-component-adapter-provider = "33.0.0"
+wit-component = "0.235.0"
