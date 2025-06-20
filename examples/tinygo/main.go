@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	fmt.Println("Hello, Go!")
+	fmt.Println("Hello, TinyGo!")
 	fmt.Printf("Arguments: %v\n", os.Args)
 }
