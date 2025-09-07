@@ -1,0 +1,10 @@
+package random:wrapper@0.1.0;
+
+interface wrapper-random {
+    get-random-bytes: func(len: u32) -> list<u8>;
+}
+
+world wrapper {
+    export wrapper-random;
+    import wasi:random/random@0.2.0;
+}

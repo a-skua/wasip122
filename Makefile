@@ -4,7 +4,10 @@ NAME := wasip122
 MODE := release
 
 .PHONY: examples
-examples: examples/go/main_p2.wasm examples/rust/main_p2.wasm examples/tinygo/main_p2.wasm
+examples: \
+	examples/go/main_p2.wasm \
+	examples/rust/main_p2.wasm \
+	examples/tinygo/main_p2.wasm
 	@for wa in $^; do \
 		echo "[$$wa]"; \
 		wasmtime run $$wa foo bar; \
@@ -22,8 +25,12 @@ target/wasm32-wasip2/debug/$(NAME).wasm: $(SRC)
 examples/rust/%.wasm: examples/rust/%.rs
 	rustc --target wasm32-wasip1 -o $@ $<
 
-examples/go/%.wasm: examples/go/%.go
+examples/go/%.wasm: examples/go/%.go examples/wrap.wasm
 	env GOOS=wasip1 GOARCH=wasm go build -o $@ $<
 
 examples/tinygo/%.wasm: examples/tinygo/%.go
 	tinygo build -target=wasip1 -o $@ $<
+
+# Build .wasm from .wat files using wasm-tools
+%.wasm: %.wat
+	wasm-tools parse $< -o $@

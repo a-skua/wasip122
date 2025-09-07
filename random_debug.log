@@ -1,0 +1,31 @@
+DEBUG: random_get called
+DEBUG: got allocation_state
+DEBUG: allocation state matches, calling State::with
+DEBUG: State::with called
+DEBUG: Got state pointer
+DEBUG: magic1 check
+DEBUG: magic2 check
+DEBUG: Magic checks passed, calling function
+DEBUG: inside State::with for random_get
+DEBUG: buf_len assertion passed
+DEBUG: calling with_one_import_alloc
+DEBUG: with_one_import_alloc called
+DEBUG: created BumpAlloc, calling with_import_alloc
+DEBUG: calling random::get_random_bytes
+Error: failed to run main module `examples/go/test_random_debug_p2.wasm`
+
+Caused by:
+    0: failed to invoke `run` function
+    1: error while executing at wasm backtrace:
+           0: 0x258f41 - wit-component:adapter:wasi_snapshot_preview1!wasi_snapshot_preview1::macros::print::h351372491e181bbf
+           1: 0x255901 - wit-component:adapter:wasi_snapshot_preview1!cabi_import_realloc
+           2: 0x25cb5a - wit-component:shim!indirect-wasi:random/random@0.2.3-get-random-bytes
+           3: 0x258b18 - wit-component:adapter:wasi_snapshot_preview1!random_get
+           4: 0x25ca46 - wit-component:shim!adapt-wasi_snapshot_preview1-random_get
+           5:  0x875ec - <unknown>!runtime.random_get
+           6:  0xbabbe - <unknown>!runtime.randinit
+           7:  0x95e96 - <unknown>!runtime.schedinit
+           8: 0x10f95e - <unknown>!runtime.rt0_go
+           9: 0x11259d - <unknown>!_rt0_wasm_wasip1
+          10: 0x25581d - wit-component:adapter:wasi_snapshot_preview1!wasi:cli/run@0.2.3#run
+    2: cannot leave component instance

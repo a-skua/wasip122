@@ -1,0 +1,8 @@
+[component.go-app]
+path = "examples/go/main_plain.wasm"
+
+[component.random-provider]  
+path = "random_wrapper_component.wasm"
+
+[dependencies]
+"wasi_snapshot_preview1.random_get" = "random-provider.random_get"

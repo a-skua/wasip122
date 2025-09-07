@@ -1,0 +1,5 @@
+package compose:demo@0.1.0;
+
+world demo {
+    include wasi:cli/command@0.2.0;
+}

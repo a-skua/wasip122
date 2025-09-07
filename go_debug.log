@@ -1,0 +1,4 @@
+Error: failed to run main module `examples/go/main_debug_p2.wasm`
+
+Caused by:
+    no exported instance named `wasi:cli/run@0.2.3`

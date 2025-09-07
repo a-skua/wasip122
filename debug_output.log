@@ -1,0 +1,16 @@
+DEBUG: args_sizes_get called
+assertion failed at adapter line 2795Error: failed to run main module `examples/go/test_debug_p2.wasm`
+
+Caused by:
+    0: failed to invoke `run` function
+    1: error while executing at wasm backtrace:
+           0: 0x257980 - wit-component:adapter:wasi_snapshot_preview1!wasi_snapshot_preview1::macros::assert_fail::hc686ed269f32cf40
+           1: 0x256088 - wit-component:adapter:wasi_snapshot_preview1!args_sizes_get
+           2: 0x25b22f - wit-component:shim!adapt-wasi_snapshot_preview1-args_sizes_get
+           3:  0x874e3 - <unknown>!runtime.args_sizes_get
+           4:  0x87ad7 - <unknown>!runtime.goenvs
+           5:  0x96048 - <unknown>!runtime.schedinit
+           6: 0x10f95e - <unknown>!runtime.rt0_go
+           7: 0x11259d - <unknown>!_rt0_wasm_wasip1
+           8: 0x25581c - wit-component:adapter:wasi_snapshot_preview1!wasi:cli/run@0.2.3#run
+    2: wasm trap: wasm `unreachable` instruction executed
