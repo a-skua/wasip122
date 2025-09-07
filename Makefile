@@ -9,6 +9,9 @@ examples: examples/go/main_p2.wasm examples/rust/main_p2.wasm
 		wasmtime run $$wa; \
 	done
 
+.PHONY: build
+build: target/wasm32-wasip2/release/$(NAME).wasm
+
 target/wasm32-wasip2/release/$(NAME).wasm: $(SRC)
 	cargo build --target wasm32-wasip2 --release
 
