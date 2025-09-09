@@ -3,10 +3,19 @@ SRC := $(shell find src -name '*.rs') Cargo.toml
 NAME := wasip122
 
 .PHONY: examples
-examples: examples/go/main_p2.wasm examples/rust/main_p2.wasm
+examples: \
+	examples/rust/hello_p2.wasm \
+	examples/rust/args_p2.wasm \
+	examples/rust/env.wasm \
+	examples/tinygo/hello_p2.wasm \
+	examples/tinygo/args_p2.wasm \
+	examples/tinygo/env.wasm \
+	examples/go/hello_p2.wasm \
+	examples/go/args_p2.wasm \
+	examples/go/env.wasm
 	@for wa in $^; do \
 		echo "[$$wa]"; \
-		wasmtime run $$wa; \
+		wasmtime run --env=FOO=bar $$wa foo bar; \
 	done
 
 .PHONY: build
@@ -23,3 +32,6 @@ examples/rust/%.wasm: examples/rust/%.rs
 
 examples/go/%.wasm: examples/go/%.go
 	env GOOS=wasip1 GOARCH=wasm go build -o $@ $<
+
+examples/tinygo/%.wasm: examples/go/%.go
+	env GOOS=wasip1 GOARCH=wasm tinygo build -o $@ $<
