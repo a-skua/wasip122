@@ -6,13 +6,13 @@ NAME := wasip122
 examples: \
 	examples/rust/hello_p2.wasm \
 	examples/rust/args_p2.wasm \
-	examples/rust/env.wasm \
+	examples/rust/env_p2.wasm \
 	examples/tinygo/hello_p2.wasm \
 	examples/tinygo/args_p2.wasm \
-	examples/tinygo/env.wasm \
+	examples/tinygo/env_p2.wasm \
 	examples/go/hello_p2.wasm \
 	examples/go/args_p2.wasm \
-	examples/go/env.wasm
+	examples/go/env_p2.wasm
 	@for wa in $^; do \
 		echo "[$$wa]"; \
 		wasmtime run --env=FOO=bar $$wa foo bar; \
@@ -20,6 +20,18 @@ examples: \
 
 .PHONY: build
 build: target/wasm32-wasip2/release/$(NAME).wasm
+
+.PHONY: wat
+wat: \
+	examples/rust/hello.wat \
+	examples/rust/args.wat \
+	examples/rust/env.wat \
+	examples/tinygo/hello.wat \
+	examples/tinygo/args.wat \
+	examples/tinygo/env.wat \
+	examples/go/hello.wat \
+	examples/go/args.wat \
+	examples/go/env.wat
 
 target/wasm32-wasip2/release/$(NAME).wasm: $(SRC)
 	cargo build --target wasm32-wasip2 --release
@@ -35,3 +47,14 @@ examples/go/%.wasm: examples/go/%.go
 
 examples/tinygo/%.wasm: examples/go/%.go
 	env GOOS=wasip1 GOARCH=wasm tinygo build -o $@ $<
+
+%.wat: %.wasm
+	wasm-tools print $< -o $@
+
+.PHONY: clean
+clean:
+	cargo clean
+	rm -f examples/rust/*.wasm examples/rust/*.wat
+	rm -f examples/go/*.wasm examples/go/*.wat
+	rm -f examples/tinygo/*.wasm examples/tinygo/*.wat
+	rm -f examples/wasi_snapshot_preview1/wasi_snapshot_preview1.wasm
