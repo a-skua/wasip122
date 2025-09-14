@@ -10,9 +10,10 @@ examples: \
 	examples/tinygo/hello_p2.wasm \
 	examples/tinygo/args_p2.wasm \
 	examples/tinygo/env_p2.wasm \
-	examples/go/hello_p2.wasm \
-	examples/go/args_p2.wasm \
-	examples/go/env_p2.wasm
+	examples/go/hello_p2_fix.wasm \
+	examples/go/args_p2_fix.wasm \
+	examples/go/env_p2_fix.wasm \
+	examples/go/color_p2_fix.wasm
 	@for wa in $^; do \
 		echo "[$$wa]"; \
 		wasmtime run --env=FOO=bar $$wa foo bar; \
@@ -35,6 +36,9 @@ wat: \
 
 target/wasm32-wasip2/release/$(NAME).wasm: $(SRC)
 	cargo build --target wasm32-wasip2 --release
+
+%_fix.wasm: %.wasm
+	./bin/go-mem.rb $< $@
 
 %_p2.wasm: %.wasm target/wasm32-wasip2/release/$(NAME).wasm
 	wasmtime run --dir . $(word 2, $^) -o $@ $<
