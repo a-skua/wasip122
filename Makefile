@@ -45,7 +45,7 @@ examples/rust/%.wasm: examples/rust/%.rs
 examples/go/%.wasm: examples/go/%.go
 	env GOOS=wasip1 GOARCH=wasm go build -o $@ $<
 
-examples/tinygo/%.wasm: examples/go/%.go
+examples/tinygo/%.wasm: examples/tinygo/%.go
 	env GOOS=wasip1 GOARCH=wasm tinygo build -o $@ $<
 
 %.wat: %.wasm
@@ -54,7 +54,4 @@ examples/tinygo/%.wasm: examples/go/%.go
 .PHONY: clean
 clean:
 	cargo clean
-	rm -f examples/rust/*.wasm examples/rust/*.wat
-	rm -f examples/go/*.wasm examples/go/*.wat
-	rm -f examples/tinygo/*.wasm examples/tinygo/*.wat
-	rm -f examples/wasi_snapshot_preview1/wasi_snapshot_preview1.wasm
+	rm -f examples/**/*.wasm examples/**/*.wat
