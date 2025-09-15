@@ -38,7 +38,7 @@ target/wasm32-wasip2/release/$(NAME).wasm: $(SRC)
 	cargo build --target wasm32-wasip2 --release
 
 %_fix.wasm: %.wasm
-	./bin/go-mem.rb $< $@
+	./bin/fix-mem.rb $< $@
 
 %_p2.wasm: %.wasm target/wasm32-wasip2/release/$(NAME).wasm
 	wasmtime run --dir . $(word 2, $^) -o $@ $<
