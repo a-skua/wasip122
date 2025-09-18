@@ -5,7 +5,7 @@ use wasi_preview1_component_adapter_provider::{
 use wit_component::ComponentEncoder;
 
 #[derive(Parser, Debug)]
-struct Wasm {
+struct Args {
     #[arg(short, long)]
     output: String,
     #[arg()]
@@ -13,9 +13,9 @@ struct Wasm {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let wasm = Wasm::parse();
+    let args = Args::parse();
 
-    let wasm_p1_bytes = std::fs::read(wasm.input)?;
+    let wasm_p1_bytes = std::fs::read(args.input)?;
 
     let wasm_p2_bytes = ComponentEncoder::default()
         .module(&wasm_p1_bytes)?
@@ -26,7 +26,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .validate(true)
         .encode()?;
 
-    std::fs::write(wasm.output, wasm_p2_bytes)?;
+    std::fs::write(args.output, wasm_p2_bytes)?;
 
     Ok(())
 }
