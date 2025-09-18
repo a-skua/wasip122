@@ -1,6 +1,7 @@
 SRC := $(shell find src -name '*.rs') Cargo.toml
 
 NAME := wasip122
+VERSION := $(shell yq '.package.version' -p toml < Cargo.toml)
 
 .PHONY: examples
 examples: \
@@ -21,6 +22,10 @@ examples: \
 
 .PHONY: build
 build: target/wasm32-wasip2/release/$(NAME).wasm
+
+.PHONY: push
+push: target/wasm32-wasip2/release/$(NAME).wasm
+	wkg oci push ghcr.io/a-skua/$(NAME):$(VERSION) $<
 
 .PHONY: wat
 wat: \
