@@ -11,10 +11,13 @@ examples: \
 	examples/tinygo/hello_p2.wasm \
 	examples/tinygo/args_p2.wasm \
 	examples/tinygo/env_p2.wasm \
+	examples/tinygo/color_p2.wasm \
+	examples/tinygo/cat_p2.wasm \
 	examples/go/hello_p2_fix.wasm \
 	examples/go/args_p2_fix.wasm \
 	examples/go/env_p2_fix.wasm \
-	examples/go/color_p2_fix.wasm
+	examples/go/color_p2_fix.wasm \
+	examples/go/cat_p2_fix.wasm
 	@for wa in $^; do \
 		echo "[$$wa]"; \
 		wasmtime run --env=FOO=bar $$wa foo bar; \
